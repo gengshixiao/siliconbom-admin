@@ -14,6 +14,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 4px;
   font-size: clamp(11px, 1.2vw, 13px);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .chip select {
@@ -23,6 +24,7 @@ body {
   font-size: 12px;
   margin-left: 6px;
   cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 /* KPI卡片网格 */
@@ -38,12 +40,14 @@ body {
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: clamp(12px, 1.5vw, 20px);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .kpi-label {
   font-size: 12px;
   color: var(--text-muted);
   margin-bottom: 8px;
+  transition: color 0.3s ease;
 }
 
 .kpi-value {
@@ -51,6 +55,13 @@ body {
   font-weight: 600;
   margin-bottom: 8px;
   font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+  color: var(--text-active);
+}
+
+/* 浅色模式下KPI数值使用稍浅的颜色 */
+[data-theme="light"] .kpi-value {
+  color: var(--text);
 }
 
 .kpi-footer {
@@ -87,6 +98,7 @@ body {
   min-height: 420px;
   display: flex;
   flex-direction: column;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .chart-header {
@@ -97,6 +109,13 @@ body {
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
+  color: var(--text-active);
+  transition: color 0.3s ease;
+}
+
+/* 浅色模式下标题使用柔和颜色 */
+[data-theme="light"] .chart-title {
+  color: var(--text);
 }
 
 .chart-subtitle {
@@ -139,6 +158,55 @@ body {
   position: relative;
 }
 
+/* SVG 图表主题支持 */
+svg {
+  transition: all 0.3s ease;
+}
+
+svg text {
+  fill: var(--text);
+  transition: fill 0.3s ease;
+}
+
+/* 图表网格线 - 深色主题 */
+.chart-grid-light line {
+  transition: stroke 0.3s ease;
+}
+
+.chart-grid-axis line {
+  transition: stroke 0.3s ease;
+}
+
+.chart-circle-bg,
+.chart-circle-stroke {
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+.chart-circle-fill {
+  transition: fill 0.3s ease;
+}
+
+/* 图表网格线 - 浅色主题 */
+[data-theme="light"] .chart-grid-light line {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .chart-grid-axis line {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .chart-circle-bg {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .chart-circle-stroke {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .chart-circle-fill {
+  fill: rgba(0, 0, 0, 0.03);
+}
+
 /* 网格布局 */
 .grid-layout {
   display: grid;
@@ -178,10 +246,12 @@ body {
   border-radius: 4px;
   margin-bottom: 8px;
   font-size: 12px;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .list-item strong {
   color: var(--text);
+  transition: color 0.3s ease;
 }
 
 /* 统计网格 */
@@ -198,6 +268,7 @@ body {
   border-radius: 4px;
   padding: 12px;
   font-size: 12px;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .stat-label {
@@ -231,11 +302,20 @@ body {
 
 .word-cloud-text {
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, fill 0.3s ease;
 }
 
 .word-cloud-text:hover {
   opacity: 0.8;
+}
+
+/* 浅色模式下词云文字稍微降低不透明度，更柔和 */
+[data-theme="light"] .word-cloud-text {
+  opacity: 0.85;
+}
+
+[data-theme="light"] .word-cloud-text:hover {
+  opacity: 0.7;
 }
 
 /* 响应式 */

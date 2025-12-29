@@ -6,6 +6,7 @@
   padding: 0;
 }
 
+/* 深色主题（默认） */
 :root {
   --bg: #1a1a1a;
   --bg-sidebar: #202020;
@@ -33,10 +34,38 @@
   --color-orange: #9b8b7a;
 }
 
+/* 浅色主题 */
+[data-theme="light"] {
+  --bg: #f5f5f5;
+  --bg-sidebar: #fafafa;
+  --bg-card: #ffffff;
+  --bg-hover: #f0f0f0;
+  --bg-input: #ffffff;
+  --border: #e0e0e0;
+  --border-focus: #d0d0d0;
+  --text: #4a4a4a;
+  --text-muted: #999999;
+  --text-secondary: #6a6a6a;
+  --text-active: #3a3a3a;
+  --accent: #b0b0b0;
+  --accent-light: #c8c8c8;
+  --primary: #d0d0d0;
+  --primary-hover: #c0c0c0;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  /* 低饱和度配色 - 浅色版本（更柔和的灰调） */
+  --color-blue: #7a9fb8;
+  --color-teal: #8aabab;
+  --color-green: #8aab8a;
+  --color-purple: #9b8aab;
+  --color-pink: #ab8a9b;
+  --color-orange: #ab9b8a;
+}
+
 body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* 通用页面头部 */
@@ -75,6 +104,7 @@ body {
   border-radius: 4px;
   color: var(--text);
   font-size: 14px;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .search-input:focus {
@@ -99,7 +129,7 @@ body {
   color: var(--text);
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, border-color 0.3s ease, color 0.3s ease;
 }
 
 .pagination button:hover:not(:disabled) {
@@ -144,7 +174,7 @@ body {
   color: var(--text);
   font-size: 12px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, border-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-action:hover {

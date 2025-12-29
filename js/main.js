@@ -14,8 +14,70 @@ const pageTitles = {
   'user_feedback.html': '产品反馈'
 };
 
+// 应用主题
+function applyTheme(theme) {
+  if (theme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+}
+
+// 通知iframe更新主题
+function notifyIframeTheme(theme) {
+  const iframe = document.getElementById('contentFrame');
+  if (iframe && iframe.contentWindow) {
+    // 使用postMessage通知iframe
+    iframe.contentWindow.postMessage({ type: 'themeChange', theme: theme }, '*');
+  }
+}
+
+// 主题切换功能
+function initTheme() {
+  // 从localStorage读取主题设置，默认为dark
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('.theme-icon');
+  
+  // 应用主题到主页面
+  applyTheme(savedTheme);
+  
+  // 更新图标
+  if (savedTheme === 'light') {
+    themeIcon.textContent = '☀️';
+  } else {
+    themeIcon.textContent = '🌙';
+  }
+  
+  // 主题切换事件
+  themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    let newTheme;
+    
+    if (currentTheme === 'light') {
+      // 切换到深色模式
+      newTheme = 'dark';
+      applyTheme('dark');
+      themeIcon.textContent = '🌙';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      // 切换到浅色模式
+      newTheme = 'light';
+      applyTheme('light');
+      themeIcon.textContent = '☀️';
+      localStorage.setItem('theme', 'light');
+    }
+    
+    // 通知iframe更新主题
+    notifyIframeTheme(newTheme);
+  });
+}
+
 // 导航切换
 document.addEventListener('DOMContentLoaded', function() {
+  // 初始化主题
+  initTheme();
+  
   // 侧边栏收起/展开功能
   const sidebar = document.getElementById('sidebar');
   const sidebarToggle = document.getElementById('sidebarToggle');
@@ -60,6 +122,13 @@ document.addEventListener('DOMContentLoaded', function() {
       // 加载页面
       document.getElementById('contentFrame').src = page;
     });
+  });
+  
+  // 监听iframe加载完成，同步主题
+  const contentFrame = document.getElementById('contentFrame');
+  contentFrame.addEventListener('load', function() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    notifyIframeTheme(savedTheme);
   });
 });
 

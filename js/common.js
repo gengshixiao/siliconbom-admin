@@ -1,6 +1,40 @@
 /* 通用JavaScript函数 */
 
 /**
+ * 主题自动应用
+ * 每个页面加载时自动读取并应用主题
+ */
+(function() {
+  // 应用主题的函数
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }
+  
+  // 立即执行，应用保存的主题
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  applyTheme(savedTheme);
+  
+  // 监听localStorage变化（用于跨标签页同步）
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'theme') {
+      const newTheme = e.newValue || 'dark';
+      applyTheme(newTheme);
+    }
+  });
+  
+  // 监听父页面发来的主题切换消息（用于iframe）
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'themeChange') {
+      applyTheme(e.data.theme);
+    }
+  });
+})();
+
+/**
  * 分页功能
  */
 class Pagination {
