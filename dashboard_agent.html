@@ -84,7 +84,6 @@
     <div class="chart-container span-8">
       <div class="chart-header">
         <div class="chart-title">对话概览</div>
-        <div class="chart-subtitle">会话次数（面积）· 对话次数（折线）· 每会话消息数（折线）</div>
         <div class="chart-legend">
           <div class="legend-item">
             <span class="legend-dot" style="background: var(--color-purple);"></span>
@@ -101,7 +100,7 @@
         </div>
       </div>
       <div class="chart-area">
-        <svg viewBox="0 0 800 280" width="100%" height="280" style="display: block;">
+        <svg viewBox="0 0 800 280" width="100%" height="280" style="display: block;" id="chart-dialogue-overview">
           <defs>
             <linearGradient id="grad2" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stop-color="rgba(139, 122, 155, 0.3)"/>
@@ -130,7 +129,6 @@
     <div class="chart-container span-4">
       <div class="chart-header">
         <div class="chart-title">Token 消耗</div>
-        <div class="chart-subtitle">输入 vs 输出（堆叠）</div>
         <div class="chart-legend">
           <div class="legend-item">
             <span class="legend-dot" style="background: var(--color-purple);"></span>
@@ -143,7 +141,7 @@
         </div>
       </div>
       <div class="chart-area">
-        <svg viewBox="0 0 400 280" width="100%" height="280" style="display: block;">
+        <svg viewBox="0 0 400 280" width="100%" height="280" style="display: block;" id="chart-token-consumption">
           <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
             <line x1="40" y1="40" x2="360" y2="40"/>
             <line x1="40" y1="100" x2="360" y2="100"/>
@@ -176,7 +174,6 @@
     <div class="chart-container span-8">
       <div class="chart-header">
         <div class="chart-title">工具调用</div>
-        <div class="chart-subtitle">调用次数（折线）· 调用耗时 P50/P95（双折线）</div>
         <div class="chart-legend">
           <div class="legend-item">
             <span class="legend-dot" style="background: var(--color-purple);"></span>
@@ -193,7 +190,7 @@
         </div>
       </div>
       <div class="chart-area">
-        <svg viewBox="0 0 800 280" width="100%" height="280" style="display: block;">
+        <svg viewBox="0 0 800 280" width="100%" height="280" style="display: block;" id="chart-tool-calls">
           <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
             <line x1="40" y1="40" x2="760" y2="40"/>
             <line x1="40" y1="100" x2="760" y2="100"/>
@@ -215,7 +212,6 @@
     <div class="chart-container span-4">
       <div class="chart-header">
         <div class="chart-title">工具分类占比</div>
-        <div class="chart-subtitle">环形 + Top 列表</div>
       </div>
       <div style="display: flex; gap: 16px; align-items: center;">
         <svg viewBox="0 0 180 180" width="180" height="180">
@@ -253,10 +249,9 @@
     <div class="chart-container span-6">
       <div class="chart-header">
         <div class="chart-title">首字响应（TTFT）</div>
-        <div class="chart-subtitle">分布（柱状）· 趋势（折线）</div>
       </div>
       <div class="chart-area">
-        <svg viewBox="0 0 600 280" width="100%" height="280" style="display: block;">
+        <svg viewBox="0 0 600 280" width="100%" height="280" style="display: block;" id="chart-ttft">
           <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
             <line x1="40" y1="40" x2="560" y2="40"/>
             <line x1="40" y1="100" x2="560" y2="100"/>
@@ -291,10 +286,9 @@
     <div class="chart-container span-6">
       <div class="chart-header">
         <div class="chart-title">任务终止</div>
-        <div class="chart-subtitle">终止率趋势（面积）· 类型分布（饼图）</div>
       </div>
       <div style="display: flex; gap: 16px; align-items: center;">
-        <svg viewBox="0 0 300 260" width="300" height="260">
+        <svg viewBox="0 0 300 260" width="300" height="260" id="chart-task-termination">
           <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
             <line x1="40" y1="40" x2="280" y2="40"/>
             <line x1="40" y1="100" x2="280" y2="100"/>
@@ -338,5 +332,200 @@
       </div>
     </div>
   </div>
+
+  <script src="js/chart-enhance.js"></script>
+  <script>
+    // 生成日期标签
+    const dateLabels = generateDateLabels(30, 'M-D');
+    
+    // 对话概览图表数据（30天数据）
+    const dialogueData = [];
+    const today = new Date();
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据
+      const sessionCount = Math.round(3200 + Math.random() * 600);
+      const dialogueCount = Math.round(2000 + Math.random() * 500);
+      const msgPerSession = (5.5 + Math.random() * 1).toFixed(1);
+      dialogueData.push({
+        x: 29 - i,
+        values: [sessionCount, dialogueCount, parseFloat(msgPerSession)],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-dialogue-overview', {
+      data: dialogueData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0', '1000', '2000', '3000', '4000'],
+          min: 0,
+          max: 4000
+        }
+      },
+      series: [
+        { name: '会话次数', color: 'var(--color-purple)' },
+        { name: '对话次数', color: 'var(--color-teal)' },
+        { name: '消息/会话', color: '#888' }
+      ]
+    });
+
+    // Token消耗图表数据（30天数据）
+    const tokenData = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据
+      const output = Math.round(3800000 + Math.random() * 600000);
+      const input = Math.round(3400000 + Math.random() * 500000);
+      tokenData.push({
+        x: 29 - i,
+        values: [output, input],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-token-consumption', {
+      data: tokenData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0', '1M', '2M', '3M', '4M', '5M'],
+          min: 0,
+          max: 5000000,
+          format: (v) => (v / 1000000).toFixed(2) + 'M'
+        }
+      },
+      series: [
+        { name: '输出', color: 'var(--color-teal)' },
+        { name: '输入', color: 'var(--color-purple)' }
+      ]
+    });
+
+    // 工具调用图表数据（30天数据）
+    const toolCallData = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据
+      const callCount = Math.round(220 + Math.random() * 60);
+      const p50 = Math.round(90 + Math.random() * 30);
+      const p95 = Math.round(70 + Math.random() * 30);
+      toolCallData.push({
+        x: 29 - i,
+        values: [callCount, p50, p95],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-tool-calls', {
+      data: toolCallData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0', '50', '100', '150', '200', '250', '300'],
+          min: 0,
+          max: 300
+        }
+      },
+      series: [
+        { name: '调用次数', color: 'var(--color-purple)' },
+        { name: '耗时 P50', color: 'var(--color-teal)' },
+        { name: '耗时 P95', color: '#888' }
+      ]
+    });
+
+    // TTFT图表数据（30天数据）
+    const ttftData = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据
+      const ttft = (1.2 + Math.random() * 0.2).toFixed(2);
+      ttftData.push({
+        x: 29 - i,
+        values: [parseFloat(ttft)],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-ttft', {
+      data: ttftData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0', '0.5', '1.0', '1.5', '2.0', '2.5'],
+          min: 0,
+          max: 2.5,
+          format: (v) => v.toFixed(2) + 's'
+        }
+      },
+      series: [
+        { name: 'TTFT', color: 'var(--color-teal)' }
+      ]
+    });
+
+    // 任务终止图表数据（30天数据）
+    const terminationData = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据
+      const rate = (3.0 + Math.random() * 1.0).toFixed(1);
+      terminationData.push({
+        x: 29 - i,
+        values: [parseFloat(rate)],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-task-termination', {
+      data: terminationData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0%', '1%', '2%', '3%', '4%', '5%'],
+          min: 0,
+          max: 5,
+          format: (v) => v.toFixed(1) + '%'
+        }
+      },
+      series: [
+        { name: '终止率', color: 'var(--color-pink)' }
+      ]
+    });
+  </script>
 </body>
 </html>

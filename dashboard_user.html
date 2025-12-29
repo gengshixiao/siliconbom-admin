@@ -84,7 +84,6 @@
     <div class="chart-container span-8">
       <div class="chart-header">
         <div class="chart-title">用户量趋势</div>
-        <div class="chart-subtitle">新增注册（面积）& DAU（折线）· 近 30 天</div>
         <div class="chart-legend">
           <div class="legend-item">
             <span class="legend-dot" style="background: var(--color-blue);"></span>
@@ -97,7 +96,7 @@
         </div>
       </div>
       <div class="chart-area">
-        <svg viewBox="0 0 800 280" width="100%" height="280" style="display: block;">
+        <svg viewBox="0 0 800 280" width="100%" height="280" style="display: block;" id="chart-user-trend">
           <defs>
             <linearGradient id="grad1" x1="0" x2="0" y1="0" y2="1">
               <stop offset="0%" stop-color="rgba(107, 143, 168, 0.3)"/>
@@ -125,7 +124,6 @@
     <div class="chart-container span-4">
       <div class="chart-header">
         <div class="chart-title">会话趋势</div>
-        <div class="chart-subtitle">会话总量 · 近 30 天</div>
         <div class="chart-legend">
           <div class="legend-item">
             <span class="legend-dot" style="background: var(--color-purple);"></span>
@@ -134,7 +132,7 @@
         </div>
       </div>
       <div class="chart-area">
-        <svg viewBox="0 0 400 280" width="100%" height="280" style="display: block;">
+        <svg viewBox="0 0 400 280" width="100%" height="280" style="display: block;" id="chart-session-trend">
           <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
             <line x1="40" y1="40" x2="360" y2="40"/>
             <line x1="40" y1="100" x2="360" y2="100"/>
@@ -156,7 +154,6 @@
     <div class="chart-container span-6">
       <div class="chart-header">
         <div class="chart-title">用户生命周期分层</div>
-        <div class="chart-subtitle">新用户 / 成长用户 / 成熟用户</div>
       </div>
       <div style="display: flex; gap: 24px; align-items: center;">
         <svg viewBox="0 0 200 200" width="200" height="200">
@@ -187,7 +184,6 @@
     <div class="chart-container span-6">
       <div class="chart-header">
         <div class="chart-title">用户活跃分层</div>
-        <div class="chart-subtitle">今日活跃 / 近期活跃 / 非活跃</div>
       </div>
       <div style="display: flex; gap: 24px; align-items: center;">
         <svg viewBox="0 0 200 200" width="200" height="200">
@@ -218,5 +214,84 @@
       </div>
     </div>
   </div>
+
+  <script src="js/chart-enhance.js"></script>
+  <script>
+    // 生成日期标签
+    const dateLabels = generateDateLabels(30, 'M-D');
+    
+    // 用户量趋势图表数据（30天数据）
+    const userTrendData = [];
+    const today = new Date();
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据，实际应该从API获取
+      const baseValue = 3000 + Math.random() * 500;
+      const newReg = Math.round(200 + Math.random() * 300);
+      userTrendData.push({
+        x: 29 - i,
+        values: [newReg, Math.round(baseValue)],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-user-trend', {
+      data: userTrendData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0', '500', '1000', '1500', '2000', '2500', '3000', '3500'],
+          min: 0,
+          max: 4000
+        }
+      },
+      series: [
+        { name: '新增注册', color: 'var(--color-blue)' },
+        { name: 'DAU', color: 'var(--color-teal)' }
+      ]
+    });
+
+    // 会话趋势图表数据（30天数据）
+    const sessionTrendData = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const dayLabel = `${date.getMonth() + 1}-${date.getDate()}`;
+      
+      // 模拟数据
+      const sessionCount = Math.round(3200 + Math.random() * 800);
+      sessionTrendData.push({
+        x: 29 - i,
+        values: [sessionCount],
+        label: dayLabel,
+        date: dateStr
+      });
+    }
+
+    enhanceChart('#chart-session-trend', {
+      data: sessionTrendData,
+      axes: {
+        x: {
+          labels: dateLabels
+        },
+        y: {
+          labels: ['0', '1000', '2000', '3000', '4000'],
+          min: 0,
+          max: 4000
+        }
+      },
+      series: [
+        { name: '会话总量', color: 'var(--color-purple)' }
+      ]
+    });
+  </script>
 </body>
 </html>

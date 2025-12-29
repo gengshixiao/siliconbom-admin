@@ -7,9 +7,9 @@ if (sessionStorage.getItem('isLoggedIn') !== 'true') {
 
 // 页面标题映射
 const pageTitles = {
-  'dashboard_user.html': '用户运营看板',
-  'dashboard_agent.html': '智能体运营看板',
-  'dashboard_bom.html': 'BOM及知识库运营看板',
+  'dashboard_user.html': '用户运营',
+  'dashboard_agent.html': '智能体运营',
+  'dashboard_bom.html': 'BOM及知识库运营',
   'user_list.html': '用户列表',
   'user_feedback.html': '产品反馈'
 };
