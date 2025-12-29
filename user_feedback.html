@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>产品反馈</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <div class="page-header">
+    <h1>产品反馈</h1>
+    <div class="search-bar">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索手机号或反馈内容..." />
+    </div>
+    <div class="filter-tags" id="filterTags">
+      <span class="filter-tag" data-tag="">全部</span>
+      <span class="filter-tag" data-tag="物料数据不全">物料数据不全</span>
+      <span class="filter-tag" data-tag="聊起来笨笨的">聊起来笨笨的</span>
+      <span class="filter-tag" data-tag="系统延迟/吐字慢">系统延迟/吐字慢</span>
+      <span class="filter-tag" data-tag="功能bug">功能bug</span>
+      <span class="filter-tag" data-tag="长得丑">长得丑</span>
+    </div>
+  </div>
+
+  <div class="feedback-list" id="feedbackList">
+    <!-- 反馈列表将通过JS填充 -->
+  </div>
+
+  <div class="pagination">
+    <button id="prevBtn">上一页</button>
+    <span class="page-info" id="pageInfo">第 1 页，共 10 页</span>
+    <button id="nextBtn">下一页</button>
+  </div>
+
+  <div class="modal" id="imageModal">
+    <button class="modal-close" onclick="closeImageModal()">×</button>
+    <img class="modal-image" id="modalImage" src="" alt="反馈截图" />
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/user_feedback.js"></script>
+</body>
+</html>
