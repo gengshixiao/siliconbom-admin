@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>产品反馈</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <style>
+    /* 右侧抽屉样式 */
+    .drawer {
+      position: fixed !important;
+      top: 0 !important;
+      right: -600px;
+      bottom: 0 !important;
+      width: 600px;
+      max-width: 600px;
+      height: 100vh !important;
+      background: var(--bg-card);
+      border-left: 1px solid var(--border);
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+      transition: right 0.3s ease;
+      z-index: 999999 !important;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    .drawer.open {
+      right: 0;
+    }
+
+    .drawer-overlay {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 999998 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      box-sizing: border-box !important;
+    }
+
+    .drawer-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 当抽屉打开时，禁止body和html滚动 */
+    html.drawer-open,
+    body.drawer-open {
+      overflow: hidden !important;
+      position: relative !important;
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    html.drawer-open body {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .drawer-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .drawer-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text);
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .drawer-close:hover {
+      background: var(--bg-hover);
+    }
+
+    .drawer-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    /* 对话消息样式 */
+    .message {
+      margin-bottom: 16px;
+      display: flex;
+    }
+
+    .message-user {
+      justify-content: flex-end;
+    }
+
+    .message-assistant {
+      justify-content: flex-start;
+    }
+
+    .message-content {
+      max-width: 85%;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      word-wrap: break-word;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .message-content-user {
+      background: var(--primary);
+      color: var(--text-active);
+      border: none;
+    }
+
+    .message-content-assistant {
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    /* 表格内容样式 */
+    .message-table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 11px;
+      background: var(--bg);
+      table-layout: fixed;
+      box-sizing: border-box;
+    }
+
+    .message-table th,
+    .message-table td {
+      padding: 6px 8px;
+      text-align: left;
+      border: 1px solid var(--border);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      box-sizing: border-box;
+    }
+
+    .message-table th {
+      background: var(--bg-hover);
+      font-weight: 600;
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .message-table td {
+      background: var(--bg);
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .message-table tr:hover td {
+      background: var(--bg-hover);
+    }
+
+    .message-content-assistant .message-table,
+    .message-content-user .message-table {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .message-list {
+      margin: 12px 0;
+      padding-left: 20px;
+    }
+
+    .message-list li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+
+    .message-link {
+      color: var(--color-blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--color-blue);
+    }
+
+    .message-link:hover {
+      opacity: 0.8;
+    }
+
+    /* 会话关联标识 */
+    .feedback-item.has-session {
+      cursor: pointer;
+      position: relative;
+    }
+
+    .feedback-item.has-session:hover {
+      border-color: var(--primary);
+      background: var(--bg-hover);
+    }
+
+    .session-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-left: 8px;
+      position: relative;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-width: 24px;
+      height: 20px;
+    }
+
+    .session-badge:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    /* 简洁的对话气泡图标 - 主气泡（圆角矩形） */
+    .session-badge::before {
+      content: '';
+      position: absolute;
+      width: 14px;
+      height: 10px;
+      border: 1.5px solid currentColor;
+      border-radius: 3px;
+      top: 50%;
+      left: 50%;
+      margin-top: -6px;
+      margin-left: -7px;
+      box-sizing: border-box;
+    }
+
+    /* 小三角形尾巴 */
+    .session-badge::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
+      border-top: 4px solid currentColor;
+      top: 50%;
+      left: 50%;
+      margin-top: 2px;
+      margin-left: -3px;
+    }
+
+    /* 深色主题 */
+    :root .session-badge {
+      background: var(--color-teal);
+      color: var(--text-active);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* 浅色主题 */
+    [data-theme="light"] .session-badge {
+      background: var(--color-teal);
+      color: var(--text-active);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h1>产品反馈</h1>
+    <div class="search-bar">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索手机号或反馈内容..." />
+    </div>
+    <div class="filter-tags" id="filterTags">
+      <span class="filter-tag" data-tag="">全部</span>
+      <span class="filter-tag" data-tag="物料数据不全">物料数据不全</span>
+      <span class="filter-tag" data-tag="聊起来笨笨的">聊起来笨笨的</span>
+      <span class="filter-tag" data-tag="系统延迟/吐字慢">系统延迟/吐字慢</span>
+      <span class="filter-tag" data-tag="功能bug">功能bug</span>
+      <span class="filter-tag" data-tag="长得丑">长得丑</span>
+    </div>
+  </div>
+
+  <div class="feedback-list" id="feedbackList">
+    <!-- 反馈列表将通过JS填充 -->
+  </div>
+
+  <div class="pagination">
+    <button id="prevBtn">上一页</button>
+    <span class="page-info" id="pageInfo">第 1 页，共 10 页</span>
+    <button id="nextBtn">下一页</button>
+  </div>
+
+  <div class="modal" id="imageModal">
+    <button class="modal-close" onclick="closeImageModal()">×</button>
+    <img class="modal-image" id="modalImage" src="" alt="反馈截图" />
+  </div>
+
+  <!-- 右侧抽屉 -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="drawer" id="conversationDrawer">
+    <div class="drawer-header">
+      <h2 id="drawerTitle">对话详情</h2>
+      <button class="drawer-close" onclick="closeDrawer()">×</button>
+    </div>
+    <div class="drawer-content" id="conversationContent">
+      <!-- 对话内容将通过JS填充 -->
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/user_feedback.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>硅宝运营平台 - 登录</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" alt="硅宝Logo" class="login-logo" />
+      <h1>硅宝运营平台</h1>
+      <p>智能体产品运营后台</p>
+    </div>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">账号</label>
+        <input type="text" id="username" name="username" value="admin" required autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" value="admin123" required autocomplete="current-password" />
+      </div>
+      <div class="form-group">
+        <label for="token">令牌</label>
+        <div class="token-input-group">
+          <input type="text" id="token" name="token" value="258851" required autocomplete="off" maxlength="6" />
+          <button type="button" id="getTokenBtn" class="btn-get-token">获取令牌</button>
+        </div>
+      </div>
+      <button type="submit" class="btn-login">登录</button>
+      <div class="error-message" id="errorMessage">账号或密码错误</div>
+    </form>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>硅宝运营平台</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <img src="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" alt="硅宝Logo" class="sidebar-logo" />
+      <h1>硅宝运营平台</h1>
+      <button class="sidebar-toggle" id="sidebarToggle" title="收起/展开侧边栏">☰</button>
+    </div>
+    <nav class="nav">
+      <div class="nav-group">
+        <div class="nav-group-title">运营管理</div>
+        <a href="#" class="nav-item active" data-page="dashboard_user.html">用户运营</a>
+        <a href="#" class="nav-item" data-page="dashboard_agent.html">智能体运营</a>
+        <a href="#" class="nav-item" data-page="dashboard_bom.html">BOM及知识库运营</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-title">用户管理</div>
+        <a href="#" class="nav-item" data-page="user_list.html">用户列表</a>
+        <a href="#" class="nav-item" data-page="user_feedback.html">产品反馈</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">用户运营</div>
+      <div class="topbar-user">
+        <button class="btn-theme-toggle" id="themeToggle" title="切换主题">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <span>管理员</span>
+        <button class="btn-logout" onclick="logout()">退出</button>
+      </div>
+    </div>
+    <div class="content-area">
+      <iframe id="contentFrame" src="dashboard_user.html"></iframe>
+    </div>
+  </div>
+
+  <button class="sidebar-expand-btn" id="sidebarExpandBtn" title="展开侧边栏">☰</button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

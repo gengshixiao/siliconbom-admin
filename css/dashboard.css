@@ -1,0 +1,386 @@
+/* 看板页面专用样式 */
+
+body {
+  padding: clamp(16px, 2vw, 32px);
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Chip标签 */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: clamp(4px, 0.5vw, 8px) clamp(8px, 1vw, 16px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: clamp(11px, 1.2vw, 13px);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.chip select {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 12px;
+  margin-left: 6px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+/* KPI卡片网格 */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(160px, 15vw, 220px), 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+}
+
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: clamp(12px, 1.5vw, 20px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.kpi-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.kpi-value {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+  color: var(--text-active);
+}
+
+/* 浅色模式下KPI数值使用稍浅的颜色 */
+[data-theme="light"] .kpi-value {
+  color: var(--text);
+}
+
+.kpi-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.delta {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+.delta.up {
+  color: var(--color-teal);
+  background: rgba(122, 155, 155, 0.15);
+}
+
+.delta.down {
+  color: var(--color-pink);
+  background: rgba(155, 122, 139, 0.15);
+}
+
+/* 图表容器 */
+.chart-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: clamp(16px, 2vw, 24px);
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chart-header {
+  margin-bottom: 16px;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-active);
+  transition: color 0.3s ease;
+}
+
+/* 浅色模式下标题使用柔和颜色 */
+[data-theme="light"] .chart-title {
+  color: var(--text);
+}
+
+.chart-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.chart-area {
+  position: relative;
+  flex: 1;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-area {
+  height: clamp(220px, 28vh, 280px);
+  min-height: 220px;
+  position: relative;
+}
+
+/* SVG 图表主题支持 */
+svg {
+  transition: all 0.3s ease;
+}
+
+svg text {
+  fill: var(--text);
+  transition: fill 0.3s ease;
+}
+
+/* 图表网格线 - 深色主题 */
+.chart-grid-light line {
+  transition: stroke 0.3s ease;
+}
+
+.chart-grid-axis line {
+  transition: stroke 0.3s ease;
+}
+
+.chart-circle-bg,
+.chart-circle-stroke {
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+
+.chart-circle-fill {
+  transition: fill 0.3s ease;
+}
+
+/* 图表网格线 - 浅色主题 */
+[data-theme="light"] .chart-grid-light line {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .chart-grid-axis line {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .chart-circle-bg {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .chart-circle-stroke {
+  stroke: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .chart-circle-fill {
+  fill: rgba(0, 0, 0, 0.03);
+}
+
+/* 网格布局 */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(12px, 1.5vw, 20px);
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 确保图表容器正确显示 */
+.grid-layout .chart-container {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Grid列宽定义 */
+.span-12 {
+  grid-column: span 12;
+}
+
+.span-8 {
+  grid-column: span 8;
+}
+
+.span-6 {
+  grid-column: span 6;
+}
+
+.span-5 {
+  grid-column: span 5;
+}
+
+.span-4 {
+  grid-column: span 4;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+/* 确保所有span类正确应用 */
+.span-6,
+.span-4,
+.span-3,
+.span-8,
+.span-5 {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* 列表项 */
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.list-item strong {
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+/* 统计网格 */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.stat-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 12px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 词云 */
+.word-cloud {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 30vh, 320px);
+  min-height: 240px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-cloud svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.word-cloud-text {
+  cursor: pointer;
+  transition: opacity 0.2s, fill 0.3s ease;
+}
+
+.word-cloud-text:hover {
+  opacity: 0.8;
+}
+
+/* 浅色模式下词云文字稍微降低不透明度，更柔和 */
+[data-theme="light"] .word-cloud-text {
+  opacity: 0.85;
+}
+
+[data-theme="light"] .word-cloud-text:hover {
+  opacity: 0.7;
+}
+
+/* 响应式 - 小屏幕，单列显示 */
+@media (max-width: 1200px) {
+  .span-8, .span-5, .span-4, .span-3, .span-6 {
+    grid-column: span 12 !important;
+  }
+  
+  .kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+  
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-container {
+    padding: 12px;
+  }
+  
+  .chart-area {
+    height: 200px;
+    min-height: 200px;
+  }
+  
+  .word-cloud {
+    height: 200px;
+    min-height: 200px;
+  }
+}
+

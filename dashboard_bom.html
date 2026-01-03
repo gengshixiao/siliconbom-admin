@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BOM及知识库运营看板</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="page-header">
+    <h1>BOM及知识库运营看板</h1>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">BOM 使用率</div>
+      <div class="kpi-value">28.4%</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 2.1%</span>
+        <span>近 30 天</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">知识库使用率</div>
+      <div class="kpi-value">41.7%</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 3.4%</span>
+        <span>近 30 天</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">BOM 总数</div>
+      <div class="kpi-value">3,260</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 6.2%</span>
+        <span>近 30 天</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">BOM 版本总数</div>
+      <div class="kpi-value">12,940</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 8.9%</span>
+        <span>近 30 天</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">知识库文档总数</div>
+      <div class="kpi-value">18,420</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 5.7%</span>
+        <span>近 30 天</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">平均文档/用户</div>
+      <div class="kpi-value">6.4</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 0.3</span>
+        <span>近 30 天</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-layout">
+    <div class="chart-container span-4">
+      <div class="chart-header">
+        <div class="chart-title">BOM 版本创建方式占比</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-teal);"></span>
+            <span>手动更新</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-blue);"></span>
+            <span>文件导入</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-purple);"></span>
+            <span>硅宝更新</span>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 24px;">
+        <svg viewBox="0 0 280 280" width="280" height="280">
+          <circle cx="140" cy="140" r="98" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="20"/>
+          <circle cx="140" cy="140" r="98" fill="none" stroke="var(--color-teal)" stroke-width="20" stroke-dasharray="283 600" stroke-linecap="round" transform="rotate(-90 140 140)"/>
+          <circle cx="140" cy="140" r="98" fill="none" stroke="var(--color-blue)" stroke-width="20" stroke-dasharray="209 600" stroke-dashoffset="-283" stroke-linecap="round" transform="rotate(-90 140 140)"/>
+          <circle cx="140" cy="140" r="98" fill="none" stroke="var(--color-purple)" stroke-width="20" stroke-dasharray="123 600" stroke-dashoffset="-492" stroke-linecap="round" transform="rotate(-90 140 140)"/>
+          <text x="140" y="132" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">近 30 天版本</text>
+          <text x="140" y="166" text-anchor="middle" fill="var(--text)" font-size="24" font-weight="600">4,820</text>
+        </svg>
+        <div style="width: 100%;">
+          <div class="list-item">
+            <span><strong>手动更新</strong></span>
+            <span>2,217（46%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>文件导入</strong></span>
+            <span>1,639（34%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>硅宝更新</strong></span>
+            <span>964（20%）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container span-8">
+      <div class="chart-header">
+        <div class="chart-title">BOM 版本创建方式趋势</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-teal);"></span>
+            <span>手动更新</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-blue);"></span>
+            <span>文件导入</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-purple);"></span>
+            <span>硅宝更新</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div id="chart-bom-version-trend" style="width: 100%; height: 240px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-layout">
+    <div class="chart-container span-6">
+      <div class="chart-header">
+        <div class="chart-title">BOM 版本说明关键词</div>
+      </div>
+      <div class="word-cloud" id="bomWordCloud">
+        <svg viewBox="0 0 400 280">
+          <!-- 词云将通过JS生成 -->
+        </svg>
+      </div>
+    </div>
+
+    <div class="chart-container span-6">
+      <div class="chart-header">
+        <div class="chart-title">知识库文档分类</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-teal);"></span>
+            <span>规格书</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-blue);"></span>
+            <span>数据手册</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-purple);"></span>
+            <span>测试报告</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-orange);"></span>
+            <span>工艺文档</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-pink);"></span>
+            <span>其他</span>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 24px; align-items: center;">
+        <svg viewBox="0 0 280 280" width="280" height="280">
+          <g transform="translate(140,140)">
+            <circle r="98" fill="rgba(255,255,255,0.05)"/>
+            <path d="M0,0 L98,0 A98,98 0 0,1 30.3,93.5 Z" fill="var(--color-teal)"/>
+            <path d="M0,0 L30.3,93.5 A98,98 0 0,1 -48.0,85.6 Z" fill="var(--color-blue)"/>
+            <path d="M0,0 L-48.0,85.6 A98,98 0 0,1 -98,0 Z" fill="var(--color-purple)"/>
+            <path d="M0,0 L-98,0 A98,98 0 0,1 -30.3,-93.5 Z" fill="var(--color-orange)"/>
+            <path d="M0,0 L-30.3,-93.5 A98,98 0 0,1 98,0 Z" fill="var(--color-pink)"/>
+            <circle r="98" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+          </g>
+          <text x="140" y="132" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">文档总数</text>
+          <text x="140" y="166" text-anchor="middle" fill="var(--text)" font-size="24" font-weight="600">18,420</text>
+        </svg>
+        <div style="flex: 1;">
+          <div class="list-item">
+            <span><strong>规格书</strong></span>
+            <span>5,894（32%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>数据手册</strong></span>
+            <span>4,421（24%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>测试报告</strong></span>
+            <span>3,316（18%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>工艺文档</strong></span>
+            <span>2,947（16%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>其他</strong></span>
+            <span>1,842（10%）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container span-4">
+      <div class="chart-header">
+        <div class="chart-title">文档描述关键词</div>
+      </div>
+      <div class="word-cloud" id="docWordCloud">
+        <svg viewBox="0 0 400 280">
+          <!-- 词云将通过JS生成 -->
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/wordcloud.js"></script>
+  <script src="js/dashboard_bom.js"></script>
+  <script src="js/echarts-helper.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 等待ECharts加载
+      if (typeof echarts === 'undefined') {
+        console.error('ECharts not loaded');
+        return;
+      }
+
+      // BOM版本创建方式趋势图表数据（30天数据）
+      const bomVersionData = [];
+      const today = new Date();
+      for (let i = 29; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        
+        // 模拟数据
+        const manual = Math.round(180 + Math.random() * 120);
+        const fileImport = Math.round(100 + Math.random() * 60);
+        const auto = Math.round(50 + Math.random() * 30);
+        bomVersionData.push({
+          date: dateStr,
+          values: [manual, fileImport, auto]
+        });
+      }
+
+      createZoomableChart('chart-bom-version-trend', {
+        data: bomVersionData,
+        chartType: 'stackedBar',
+        yAxis: {
+          min: 0,
+          max: 400
+        },
+        series: [
+          { name: '手动更新', color: '#7a9b9b' },
+          { name: '文件导入', color: '#6b8fa8' },
+          { name: '硅宝更新', color: '#8b7a9b' }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

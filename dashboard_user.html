@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>用户运营看板</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <div class="page-header">
+    <h1>用户运营看板</h1>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">累计注册用户</div>
+      <div class="kpi-value">12,480</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 3.2%</span>
+        <span>近 7 天</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">今日新增注册</div>
+      <div class="kpi-value">+268</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 12.4%</span>
+        <span>日环比</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">今日活跃用户（DAU）</div>
+      <div class="kpi-value">3,120</div>
+      <div class="kpi-footer">
+        <span class="delta down">↓ 1.8%</span>
+        <span>日环比</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">近 7 日活跃用户</div>
+      <div class="kpi-value">8,460</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 4.6%</span>
+        <span>周环比</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">今日会话数</div>
+      <div class="kpi-value">3,842</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 12.0%</span>
+        <span>日环比</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">人均会话数（今日）</div>
+      <div class="kpi-value">1.23</div>
+      <div class="kpi-footer">
+        <span class="delta up">↑ 2.4%</span>
+        <span>日环比</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-layout">
+    <div class="chart-container span-6">
+      <div class="chart-header">
+        <div class="chart-title">用户量趋势</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-blue);"></span>
+            <span>新增注册</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-teal);"></span>
+            <span>DAU</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div id="chart-user-trend" style="width: 100%; height: 240px;"></div>
+      </div>
+    </div>
+
+    <div class="chart-container span-6">
+      <div class="chart-header">
+        <div class="chart-title">会话趋势</div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-dot" style="background: var(--color-purple);"></span>
+            <span>会话总量</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div id="chart-session-trend" style="width: 100%; height: 240px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-layout">
+    <div class="chart-container span-6">
+      <div class="chart-header">
+        <div class="chart-title">用户生命周期分层</div>
+      </div>
+      <div style="display: flex; gap: 24px; align-items: center;">
+        <svg viewBox="0 0 200 200" width="200" height="200">
+          <circle class="chart-circle-bg" cx="100" cy="100" r="70" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="16"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--color-teal)" stroke-width="16" stroke-dasharray="154 440" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--color-blue)" stroke-width="16" stroke-dasharray="176 440" stroke-dashoffset="-154" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="70" fill="none" stroke="var(--color-pink)" stroke-width="16" stroke-dasharray="110 440" stroke-dashoffset="-330" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+          <text x="100" y="95" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">总用户</text>
+          <text x="100" y="115" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="600">12,480</text>
+        </svg>
+        <div style="flex: 1;">
+          <div class="list-item">
+            <span><strong>新用户</strong>（≤7 天）</span>
+            <span>4,368（35%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>成长用户</strong>（8–30 天）</span>
+            <span>4,992（40%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>成熟用户</strong>（>30 天）</span>
+            <span>3,120（25%）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container span-6">
+      <div class="chart-header">
+        <div class="chart-title">用户活跃分层</div>
+      </div>
+      <div style="display: flex; gap: 24px; align-items: center;">
+        <svg viewBox="0 0 200 200" width="200" height="200">
+          <g transform="translate(100,100)">
+            <circle class="chart-circle-fill" r="70" fill="rgba(255,255,255,0.05)"/>
+            <path d="M0,0 L70,0 A70,70 0 0,1 0,70 Z" fill="var(--color-teal)"/>
+            <path d="M0,0 L0,70 A70,70 0 0,1 -49.5,49.5 Z" fill="var(--color-blue)"/>
+            <path d="M0,0 L-49.5,49.5 A70,70 0 0,1 70,0 Z" fill="var(--color-pink)"/>
+            <circle class="chart-circle-stroke" r="70" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+          </g>
+          <text x="100" y="95" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">全部用户</text>
+          <text x="100" y="115" text-anchor="middle" fill="var(--text)" font-size="20" font-weight="600">12,480</text>
+        </svg>
+        <div style="flex: 1;">
+          <div class="list-item">
+            <span><strong>今日活跃</strong></span>
+            <span>3,120（25%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>近期活跃</strong>（近 7 日但今日不活跃）</span>
+            <span>4,368（35%）</span>
+          </div>
+          <div class="list-item">
+            <span><strong>非活跃</strong>（7 天以上未活跃）</span>
+            <span>4,992（40%）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/echarts-helper.js"></script>
+  <script>
+    (function() {
+      // 等待ECharts和DOM都准备好
+      function initCharts() {
+        if (typeof echarts === 'undefined') {
+          setTimeout(initCharts, 50);
+          return;
+        }
+
+        const chart1 = document.getElementById('chart-user-trend');
+        const chart2 = document.getElementById('chart-session-trend');
+        if (!chart1 || !chart2) {
+          setTimeout(initCharts, 50);
+          return;
+        }
+
+        // 用户量趋势图表数据（30天数据）
+        const userTrendData = [];
+        const today = new Date();
+        for (let i = 29; i >= 0; i--) {
+          const date = new Date(today);
+          date.setDate(date.getDate() - i);
+          const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+          
+          const baseValue = 3000 + Math.random() * 500;
+          const newReg = Math.round(200 + Math.random() * 300);
+          userTrendData.push({
+            date: dateStr,
+            values: [newReg, Math.round(baseValue)]
+          });
+        }
+
+        createZoomableChart('chart-user-trend', {
+          data: userTrendData,
+          chartType: 'dualAxis',
+          showArea: true,
+          series: [
+            { name: '新增注册', color: '#6b8fa8' },
+            { name: 'DAU', color: '#7a9b9b' }
+          ]
+        });
+
+        // 会话趋势图表数据（30天数据）
+        const sessionTrendData = [];
+        for (let i = 29; i >= 0; i--) {
+          const date = new Date(today);
+          date.setDate(date.getDate() - i);
+          const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+          
+          const sessionCount = Math.round(3200 + Math.random() * 800);
+          sessionTrendData.push({
+            date: dateStr,
+            values: [sessionCount]
+          });
+        }
+
+        createZoomableChart('chart-session-trend', {
+          data: sessionTrendData,
+          chartType: 'area',
+          yAxis: {
+            min: 0,
+            max: 4000
+          },
+          series: [
+            { name: '会话总量', color: '#8b7a9b' }
+          ]
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCharts);
+      } else {
+        setTimeout(initCharts, 100);
+      }
+    })();
+  </script>
+</body>
+</html>

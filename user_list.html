@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>用户列表</title>
+  <link rel="icon" type="image/png" href="https://chat-web-1253214834.cos.ap-beijing.myqcloud.com/image/f4f1acead1b2b1cfc74946089e643749.png" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <div class="page-header">
+    <h1>用户列表</h1>
+    <div class="search-bar">
+      <input type="text" class="search-input" id="searchInput" placeholder="搜索用户ID、用户名或手机号..." />
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="sortable" data-sort="id">用户ID</th>
+          <th class="sortable" data-sort="username">用户名</th>
+          <th>手机号</th>
+          <th>注册时间</th>
+          <th class="sortable" data-sort="lastLogin">最近登录时间</th>
+          <th class="sortable" data-sort="sessions">总会话次数</th>
+          <th class="sortable" data-sort="tokens">总消耗Token数</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <!-- 数据将通过JS填充 -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button id="prevBtn">上一页</button>
+    <span class="page-info" id="pageInfo">第 1 页，共 10 页</span>
+    <button id="nextBtn">下一页</button>
+  </div>
+
+
+  <script src="js/common.js"></script>
+  <script src="js/user_list.js"></script>
+</body>
+</html>
